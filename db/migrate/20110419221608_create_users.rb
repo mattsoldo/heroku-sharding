@@ -1,5 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
-  using_group('all_shards')
+  using(:1, :2)
   
   def self.up
     execute "CREATE TABLE users (
