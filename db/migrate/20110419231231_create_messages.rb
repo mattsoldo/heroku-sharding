@@ -1,4 +1,6 @@
 class CreateMessages < ActiveRecord::Migration
+  using_group(:all_shards)
+  
   def self.up
     execute "CREATE TABLE messages (
               id          UUID  PRIMARY KEY,
