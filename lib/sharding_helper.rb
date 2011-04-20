@@ -1,9 +1,5 @@
-module UUIDHelper
-  # def set_uuid
-  #   self.id = UUIDTools::UUID.random_create.to_s
-  #   
-  # end
-  
+module ShardingHelper  
+
   def set_uuid
     uuid = UUIDTools::UUID.random_create
     self.id = uuid.to_s
@@ -13,4 +9,5 @@ module UUIDHelper
       self.node = self.user.node
     end
   end
+  
 end

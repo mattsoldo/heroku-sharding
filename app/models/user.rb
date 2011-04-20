@@ -4,5 +4,5 @@ class User < ActiveRecord::Base
   before_create :set_uuid
   validates_presence_of :name
   
-  include UUIDHelper
+  include ShardingHelper
 end

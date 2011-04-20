@@ -4,6 +4,6 @@ class Message < ActiveRecord::Base
   before_create :set_uuid
   validates_presence_of :body
   
-  include UUIDHelper
+  include ShardingHelper
   
 end
