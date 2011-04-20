@@ -12,11 +12,13 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new(params[:message])
+    user = User.find(params[:user_id])
+    @message = user.messages.build(params[:message])
+    # @message = Message.new(params[:message])
     if @message.save
-      redirect_to @message, :notice => "Successfully created message."
+      redirect_to user, :notice => "Successfully created message."
     else
-      render :action => 'new'
+      redirect_to user, :notice => "Message not created."
     end
   end
 

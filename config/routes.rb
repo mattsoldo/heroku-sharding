@@ -1,7 +1,11 @@
 Sharding::Application.routes.draw do
   resources :messages
 
-  resources :users
+  resources :users do
+    resources :messages
+  end
+
+  root :to => "users#index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -3,7 +3,7 @@ class CreateMessages < ActiveRecord::Migration
     execute "CREATE TABLE messages (
               id          UUID  PRIMARY KEY,
               user_id     UUID  REFERENCES users (id),  
-              message     varchar(255),
+              body     varchar(255),
               created_at  timestamp,
               updated_at  timestamp,
               node  smallint

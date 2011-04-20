@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(:version => 20110419231231) do
   create_table "messages", :id => false, :force => true do |t|
     t.string   "id",         :limit => nil, :null => false
     t.string   "user_id",    :limit => nil
-    t.string   "message"
+    t.string   "body"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "node",       :limit => 2

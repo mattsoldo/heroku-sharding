@@ -1,13 +1,23 @@
-<% title "User" %>
+<% title @user.name %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
 <p>
   <strong>Email:</strong>
   <%= @user.email %>
 </p>
+
+<h2>Messages</h2>
+
+<ul id="messages">
+  <%= render :partial => "message", :collection => @user.messages %>
+</ul>
+
+<%= form_for([@user, Message.new]) do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :body, "Create New Message" %><br />
+    <%= f.text_field :body %>
+  </p>
+<% end %>
 
 <p>
   <%= link_to "Edit", edit_user_path(@user) %> |
