@@ -28,6 +28,8 @@ GEM
       activemodel (= 3.0.6)
       activesupport (= 3.0.6)
     activesupport (3.0.6)
+    ar-octopus (0.3.4)
+      activerecord (>= 2.3)
     arel (2.0.9)
     builder (2.1.2)
     daemons (1.1.2)
@@ -78,6 +80,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ar-octopus
   mocha
   nifty-generators
   pg

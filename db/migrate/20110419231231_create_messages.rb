@@ -2,7 +2,7 @@ class CreateMessages < ActiveRecord::Migration
   def self.up
     execute "CREATE TABLE messages (
               id          UUID  PRIMARY KEY,
-              user_id     UUID  REFERENCES users (id),  
+              user_id     UUID  REFERENCES users ON DELETE CASCADE,  
               body     varchar(255),
               created_at  timestamp,
               updated_at  timestamp,
