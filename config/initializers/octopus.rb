@@ -23,8 +23,7 @@ end
 #   config.shards = shards
 # end
 
-Octopus.setup do |config|
-  config.shards = {
+Octopus.shards = {
     :production => {
       :white_shard => {
         :adapter => "postgresql", 
@@ -42,5 +41,3 @@ Octopus.setup do |config|
       }
     }
   }
-  config.environments = [:production]
-end
