@@ -12,24 +12,4 @@
 
 ActiveRecord::Schema.define(:version => 20110419231231) do
 
-  create_table "messages", :id => false, :force => true do |t|
-    t.string   "id",         :limit => nil, :null => false
-    t.string   "user_id",    :limit => nil
-    t.string   "body"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "node",       :limit => 2
-  end
-
-  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
-
-  create_table "users", :id => false, :force => true do |t|
-    t.string   "id",         :limit => nil, :null => false
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "node",       :limit => 2
-  end
-
 end

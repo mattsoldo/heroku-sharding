@@ -5,6 +5,7 @@ gem 'pg'
 gem 'uuidtools'
 gem 'thin'
 gem 'ar-octopus', :require => 'octopus'
+gem 'redis'
 
 group :development, :test do
   gem 'nifty-generators'

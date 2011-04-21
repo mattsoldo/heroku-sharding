@@ -1,15 +1,28 @@
 octopus:
   environments:
+    - development
     - production
+  development:
+    shards:
+      red:
+        adapter: postgresql
+        encoding: unicode
+        database: sharding-red
+        username: soldo        
+      blue:
+        adapter: postgresql
+        encoding: unicode
+        database: sharding-blue
+        username: soldo        
   production:
     shards:
-      0:
+      white:
         adapter: postgresql
         database: dj21lsmiewecscn
         username: uf3ljol7ufl6wji
         password: p7fz8kjndmo8y4ia3omwk8mre3
         host: ec2-50-19-122-152.compute-1.amazonaws.com
-      1:
+      yellow:
         adapter: postgresql
         database: dc37wq7vnsskr83
         username: uy2nwf64mvc59tm
