@@ -23,12 +23,12 @@ class Shard
   end
   
   # Requires that object responds to .node method with an integer
-  def self.which(node)
+  def self.which_from_node(node)
     shard_number = node % Shard.count
     REDIS.get(shard_number).to_sym
   end
   
-  def self.which_from_uuid(uuid)
+  def self.which(uuid)
     node = uuid.gsub('-','').hex.to_i % NODES
     shard_number = node % Shard.count
     REDIS.get(shard_number).to_sym

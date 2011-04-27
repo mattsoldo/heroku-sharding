@@ -4,9 +4,9 @@ class Message < ActiveRecord::Base
   before_create :set_uuid
   validates_presence_of :body
   
-  # include ShardingHelper
-  def set_uuid
-    self.id = UUIDTools::UUID.random_create.to_s
+  include UUIDForID
+  
+  def Message.create_with_sharding(params)
+    Message.using(Shard.which(params[:user_id])).create(params)
   end
-
 end

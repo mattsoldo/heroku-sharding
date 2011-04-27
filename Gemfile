@@ -6,6 +6,7 @@ gem 'uuidtools'
 gem 'thin'
 gem 'ar-octopus', :require => 'octopus'
 gem 'redis'
+gem 'lorem'
 
 group :development, :test do
   gem 'nifty-generators'
