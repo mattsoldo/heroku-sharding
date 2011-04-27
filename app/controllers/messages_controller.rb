@@ -1,4 +1,10 @@
 class MessagesController < ApplicationController
+  around_filter :select_shard      
+
+  def select_shard(&block)
+    Octopus.using(Shard.which_from_uuid(params[:user_id]), &block)
+  end
+    
   def index
     @messages = Message.all
   end

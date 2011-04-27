@@ -5,7 +5,8 @@ class Message < ActiveRecord::Base
   validates_presence_of :body
   
   # include ShardingHelper
-  def User.calc_node(params)
-    User.find(params[:user_id]).node
+  def set_uuid
+    self.id = UUIDTools::UUID.random_create.to_s
   end
+
 end
