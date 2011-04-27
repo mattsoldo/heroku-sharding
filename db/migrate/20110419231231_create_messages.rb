@@ -1,5 +1,5 @@
 class CreateMessages < ActiveRecord::Migration
-  using(:red, :blue)
+  using(:white, :yellow)
   
   def self.up
     execute "CREATE TABLE messages (
