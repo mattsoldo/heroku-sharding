@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
   around_filter :select_shard, :only => [:show, :edit, :update, :destroy]
 
-  def select_shard(&block)
-    Octopus.using(Shard.which_from_uuid(params[:id]), &block)
-  end
-
   def index
     @users = User.all
   end
@@ -44,4 +40,11 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to users_url, :notice => "Successfully destroyed user."
   end
+  
+  private
+
+  def select_shard(&block)
+    Octopus.using(Shard.which_from_uuid(params[:id]), &block)
+  end
+
 end

@@ -11,5 +11,5 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: sharding-red
+  database: white
   pool: 5

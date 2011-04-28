@@ -37711,7 +37711,7 @@ domains = [
 first_names_length = first_names.length
 last_names_length = last_names.length
 domains_length = domains.length
-10000.times do
+5000.times do
   name = first_names[rand(first_names_length)] + ' ' + last_names[rand(last_names_length)]
   email = name.split.join('.') + '@' + domains[rand(domains_length)]
   user = User.create(:name => name, :email => email)

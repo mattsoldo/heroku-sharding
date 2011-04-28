@@ -1,0 +1,23 @@
+<% title "Shard" %>
+
+<table>
+  <tr>
+    <th>Number</th>
+    <th>Name</th>
+    <th>Users</th>
+  </tr>
+  <% for shard in @shards %>
+    <tr>
+      <td><%= shard.name %></td>
+      <td><%= shard.number %></td>
+      <td><%= User.using(shard.name).count %></td>
+		</tr>
+  <% end %>
+	<tfoot>
+		<tr>
+			<td>Total</td>
+			<td></td>
+			<td><%= User.total_count %></td>
+		</tr>
+	</tfoot>				
+</table>

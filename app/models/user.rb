@@ -4,9 +4,27 @@ class User < ActiveRecord::Base
   validates_presence_of :name
   include ShardingHelper
   
+  scope :on_shard, lambda {|shard| where("node % #{Shard.count} = #{shard.number}") }
+  scope :not_on_shard, lambda {|shard| where("node % #{Shard.count} != #{shard.number}") }
+  
   def to_s
     "#{id}: #{name}, #{email}"
   end
+  
+  def User.purge_shards
+    Shard.all.each do |shard|
+      User.using(shard.name).not_on_shard(shard).delete_all()
+    end
+  end
+  
+  def User.total_count
+    count = 0
+    Shard.all.each do |shard|
+      count += User.using(shard.name).count
+    end
+    return count
+  end
+  
   # def calc_node
   #   node_from_uuid(params[:id])
   # end
