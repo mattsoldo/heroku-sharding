@@ -1,8 +1,7 @@
-class User < ActiveRecord::Base
+class User < ActiveRecord::Base  
   attr_accessible :name, :email, :id, :node
   has_many :messages
   validates_presence_of :name
-  include ShardingHelper
   
   scope :on_shard, lambda {|shard| where("node % #{Shard.count} = #{shard.number}") }
   scope :not_on_shard, lambda {|shard| where("node % #{Shard.count} != #{shard.number}") }
@@ -11,34 +10,29 @@ class User < ActiveRecord::Base
     "#{id}: #{name}, #{email}"
   end
   
-  def User.rebalance_shards
-    Shard.all.each do |shard|
-      User.using(shard.key).where("node % #{Shard.count} != #{shard.number}").delete_all()
+  class << User
+    def create_with_sharding(params)
+      user = self.new(params)
+      user.id = UUIDTools::UUID.random_create.to_s
+      user.node = Shard.node_from_uuid(user.id)
+      shard = Shard.which(user.id)
+      User.using(shard.key).create_without_sharding(user.attributes)
     end
-  end
-  
-  def User.total_count
-    count = 0
-    Shard.all.each do |shard|
-      count += User.using(shard.key).count
+    
+    def rebalance_shards
+      Shard.all.each do |shard|
+        User.using(shard.key).where("node % #{Shard.count} != #{shard.number}").delete_all()
+      end
     end
-    return count
+
+    def total_count
+      count = 0
+      Shard.all.each do |shard|
+        count += User.using(shard.key).count
+      end
+      return count
+    end
+    
+    alias_method_chain :create, :sharding
   end
-  
-  # def calc_node
-  #   node_from_uuid(params[:id])
-  # end
-  
-  # def User.calc_node(params)
-  #   # puts params[:id]
-  #   node_from_uuid(params[:id])
-  #   # params[:id].gsub('-','').hex.to_i % NODES
-  # end
-  
-  # def self.create_with_sharding(params)
-  #   user = User.new(params)
-  #   shard = Shard.which(user.id)
-  #   puts shard
-  #   User.using(shard).create(user.attributes)
-  # end
 end
