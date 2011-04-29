@@ -7,7 +7,8 @@ gem 'thin'
 gem 'ar-octopus', :require => 'octopus'
 gem 'redis'
 gem 'lorem'
-
+gem 'simple_nested_set'
+gem 'kaminari'
 group :development, :test do
   gem 'nifty-generators'
 end

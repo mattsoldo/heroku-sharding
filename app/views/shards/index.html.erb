@@ -8,9 +8,10 @@
   </tr>
   <% for shard in @shards %>
     <tr>
-      <td><%= shard.name %></td>
+      <td><%= link_to shard.name, shard %></td>
       <td><%= shard.number %></td>
-      <td><%= User.using(shard.name).count %></td>
+      <td><%= User.using(shard.key).count %></td>
+      <td><%= link_to "(edit)", edit_shard_path(shard) %></td>
 		</tr>
   <% end %>
 	<tfoot>
@@ -21,3 +22,8 @@
 		</tr>
 	</tfoot>				
 </table>
+
+<p>
+	<%= link_to "New Shard", new_shard_path %> |
+	<%= link_to "Rebalance Users", rebalance_shards_path %>
+</p>

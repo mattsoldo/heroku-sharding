@@ -1,0 +1,16 @@
+<%= form_for @shard do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.select :name, Shard.unused_names << @shard.name %>
+  </p>
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.label :parent %><br />
+    <%= f.collection_select :parent_id, Shard.order(:number).all, :id, :to_s, {:include_blank => true} %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

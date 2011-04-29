@@ -24,6 +24,26 @@ octopus:
         encoding: unicode
         database: amber
         username: soldo        
+      gold:
+        adapter: postgresql
+        encoding: unicode
+        database: gold
+        username: soldo        
+      silver:
+        adapter: postgresql
+        encoding: unicode
+        database: silver
+        username: soldo        
+      red:
+        adapter: postgresql
+        encoding: unicode
+        database: red
+        username: soldo        
+      blue:
+        adapter: postgresql
+        encoding: unicode
+        database: blue
+        username: soldo        
   production:
     shards:
       white:

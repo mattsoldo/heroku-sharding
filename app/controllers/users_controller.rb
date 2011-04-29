@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   private
 
   def select_shard(&block)
-    Octopus.using(Shard.which_from_uuid(params[:id]), &block)
+    Octopus.using(Shard.which(params[:id]), &block)
   end
 
 end

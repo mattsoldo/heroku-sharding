@@ -11,16 +11,16 @@ class User < ActiveRecord::Base
     "#{id}: #{name}, #{email}"
   end
   
-  def User.purge_shards
+  def User.rebalance_shards
     Shard.all.each do |shard|
-      User.using(shard.name).not_on_shard(shard).delete_all()
+      User.using(shard.key).where("node % #{Shard.count} != #{shard.number}").delete_all()
     end
   end
   
   def User.total_count
     count = 0
     Shard.all.each do |shard|
-      count += User.using(shard.name).count
+      count += User.using(shard.key).count
     end
     return count
   end

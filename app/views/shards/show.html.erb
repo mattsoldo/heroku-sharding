@@ -1,0 +1,23 @@
+<% title "Shard" %>
+
+<p>
+  <strong>Name:</strong>
+  <%= @shard.name %>
+</p>
+<p>
+  <strong>Number:</strong>
+  <%= @shard.number %>
+</p>
+<p>
+  <strong>Parent:</strong>
+  <%= @shard.parent %>
+</p>
+  <%= link_to "Edit", edit_shard_path(@shard) %> |
+  <%= link_to "Destroy", @shard, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", shards_path %>
+</p>
+
+<h4>Users (<%= User.using(@shard.key).count %>)</h3>
+<ul>
+	<%= render @users %>
+</ul>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110419231231) do
+ActiveRecord::Schema.define(:version => 20110428200710) do
 
   create_table "messages", :id => false, :force => true do |t|
     t.string   "id",         :limit => nil, :null => false
@@ -22,6 +22,17 @@ ActiveRecord::Schema.define(:version => 20110419231231) do
   end
 
   add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+
+  create_table "shards", :id => false, :force => true do |t|
+    t.integer  "id",         :null => false
+    t.string   "name"
+    t.integer  "number"
+    t.integer  "parent_id"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :id => false, :force => true do |t|
     t.string   "id",         :limit => nil, :null => false
