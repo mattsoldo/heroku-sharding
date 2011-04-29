@@ -14,8 +14,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save
+    if @user = User.create(params[:user])
+    # uuid = 
+    # @user = User.new(params[:user])
+    # @user.id = UUIDTools::UUID.random_create.to_s
+    # @user.node = Shard.node_from_uuid(@user.id)
+    # shard = Shard.which(user.id)
+    # if @user.using(shard.key).save
       redirect_to @user, :notice => "Successfully created user."
     else
       render :action => 'new'
@@ -44,7 +49,7 @@ class UsersController < ApplicationController
   private
 
   def select_shard(&block)
-    Octopus.using(Shard.which(params[:id]), &block)
+    Octopus.using(Shard.which(params[:id]).key, &block)
   end
 
 end
