@@ -48,7 +48,7 @@ module ShardingHelper
       object.id = UUIDTools::UUID.random_create.to_s
       object.node = Shard.node_from_uuid(object.id)
       shard = Shard.which(object.id)
-      self.using(shard).create_without_sharding(object.attributes)
+      self.using(shard.key).create_without_sharding(object.attributes)
     end
     
     # def old_create_with_sharding(params)
