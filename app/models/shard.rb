@@ -10,6 +10,23 @@ class Shard < ActiveRecord::Base
     self.number = parent.number + (Shard.octopus_count / 2)
   end
 
+  def Shard.names
+    Shard.all.map {|shard| shard.name}
+  end
+
+  def Shard.octopus_hash
+    Octopus.config[Octopus.rails_env]["shards"]
+  end
+  
+  def Shard.octopus_names
+    Shard.octopus_hash.keys
+  end
+
+  # Used to figure out which shards do no have records
+  def Shard.unused_names
+    Shard.octopus_names - Shard.names
+  end
+      
   def key
     name.to_sym
   end
@@ -17,35 +34,16 @@ class Shard < ActiveRecord::Base
   def to_s
     "#{number}: #{name}"
   end
-  
-  def self.octopus_hash
-    Octopus.config[Octopus.rails_env]["shards"]
-  end
-  
-  def self.octopus_names
-    Shard.octopus_hash.keys
-  end
-  
-  def self.octopus_count
+    
+  def Shard.octopus_count
     Octopus.config[Octopus.rails_env]["shards"].count
   end
-  
-  def self.names
-    Shard.all.map {|shard| shard.name}
-  end
-
-  # Used to figure out which shards do no have records
-  def self.unused_names
-    Shard.octopus_names - Shard.names
-  end
-      
-  
-  def self.node_from_uuid(uuid)
+    
+  def Shard.node_from_uuid(uuid)
     uuid.gsub('-','').hex.to_i % NODES
   end
-  
-  
-  def self.which(uuid)
+    
+  def Shard.find_by_uuid(uuid)
     node = Shard.node_from_uuid(uuid)
     shard_number = node % Shard.count
     Shard.find_by_number(shard_number)

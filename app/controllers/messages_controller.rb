@@ -2,7 +2,7 @@ class MessagesController < ApplicationController
   around_filter :select_shard      
 
   def select_shard(&block)
-    Octopus.using(Shard.which(params[:user_id]).key, &block)
+    Octopus.using(Shard.find_by_uuid(params[:user_id]).key, &block)
   end
     
   def index

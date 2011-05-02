@@ -15,12 +15,13 @@ class User < ActiveRecord::Base
       user = self.new(params)
       user.id = UUIDTools::UUID.random_create.to_s
       user.node = Shard.node_from_uuid(user.id)
-      shard = Shard.which(user.id)
+      shard = Shard.find_by_uuid(user.id)
       User.using(shard.key).create_without_sharding(user.attributes)
     end
     
     def rebalance_shards
       Shard.all.each do |shard|
+        # Delete all of the users that shouldn't be on this shard
         User.using(shard.key).where("node % #{Shard.count} != #{shard.number}").delete_all()
       end
     end
