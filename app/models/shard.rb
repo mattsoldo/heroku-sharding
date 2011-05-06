@@ -7,7 +7,11 @@ class Shard < ActiveRecord::Base
   before_create :set_number
   
   def set_number
-    self.number = parent.number + (Shard.octopus_count / 2)
+    if parent
+      self.number = parent.number + (Shard.octopus_count / 2)
+    else
+      self.number = 0
+    end
   end
 
   def Shard.names
