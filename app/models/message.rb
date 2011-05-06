@@ -7,6 +7,6 @@ class Message < ActiveRecord::Base
   include UUIDForID
   
   def Message.create_with_sharding(params)
-    Message.using(Shard.find_by_uuid(params[:user_id])).create(params)
+    Message.using(Shard.find_by_uuid(params[:user_id]).key).create(params)
   end
 end
