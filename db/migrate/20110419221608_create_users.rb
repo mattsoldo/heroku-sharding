@@ -1,5 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
-  using(:white, :yellow)
+  using(:white, :red)
   
   def self.up
     execute "CREATE TABLE users (
