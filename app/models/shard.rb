@@ -3,7 +3,7 @@ class Shard < ActiveRecord::Base
   has_many :children, :class_name => "Shard", :foreign_key => "parent_id"
   belongs_to :parent, :class_name => "Shard"
   
-  validates_presence_of :parent_id
+  # validates_presence_of :parent_id
   before_create :set_number
   
   def set_number
