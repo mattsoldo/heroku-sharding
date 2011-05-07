@@ -4,8 +4,10 @@ class CreateShards < ActiveRecord::Migration
       t.string :name
       t.integer :number
       t.references :parent
-      t.integer :lft
-      t.integer :rgt
+      t.string :dbname
+      t.string :username
+      t.string :password
+      t.string :host
       t.timestamps
     end
   end
