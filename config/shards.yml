@@ -46,27 +46,9 @@ octopus:
         username: soldo        
   production:
     shards:
-      white:
+      red:
         adapter: postgresql
-        database: dj21lsmiewecscn
-        username: uf3ljol7ufl6wji
-        password: p7fz8kjndmo8y4ia3omwk8mre3
-        host: ec2-50-19-122-152.compute-1.amazonaws.com
-      yellow:
-        adapter: postgresql
-        database: dc37wq7vnsskr83
-        username: uy2nwf64mvc59tm
-        password: pa93p1b6acd4fcrcmdbt5qbxox
-        host: ec2-50-19-122-155.compute-1.amazonaws.com
-      amber:
-        adapter: postgresql
-        database: dj21lsmiewecscn
-        username: uf3ljol7ufl6wji
-        password: p7fz8kjndmo8y4ia3omwk8mre3
-        host: ec2-50-19-100-112.compute-1.amazonaws.com
-      black:
-        adapter: postgresql
-        database: dc37wq7vnsskr83
-        username: uy2nwf64mvc59tm
-        password: pa93p1b6acd4fcrcmdbt5qbxox
-        host: ec2-50-19-100-248.compute-1.amazonaws.com
+        database: du1csnu5xy0hlfw
+        username: ucs7x6s9vo72ek
+        password: p85y2qr2vz3qh00w11q5fx9rcx
+        host: ec2-50-19-106-11.compute-1.amazonaws.com
