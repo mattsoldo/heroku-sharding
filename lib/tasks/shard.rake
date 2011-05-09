@@ -1,8 +1,20 @@
 namespace :shard do
   desc "Add more shards and redistribute the data"
+  task :track => :environment do
+    heroku = Heroku::Client.new('me@example.com', 'mypass')
+    existing_dbs = Shard.all
+    existing_dbs.each do |db|
+      # Create a tracker
+      
+    end
+  end
+  
   task :expand => :environment do
     puts "Sharding"
     existing_dbs = Shard.all
+    existing_dbs.each do |db|
+      # Create a tracker
+    end
     ENV.each_with_index do |env_variable, index|
       # Test if its a Heroku PostgreSQL URL
       if env_variable[0] =~ /HEROKU_POSTGRESQL_[A-Z]+_URL/

@@ -53,4 +53,12 @@ class Shard < ActiveRecord::Base
     Shard.find_by_number(shard_number)
   end
   
+  def heroku_name
+    return "HEROKU_POSTGRESQL_#{name.upcase}"
+  end
+  
+  def track(password)
+    heroku = Heroku::Client.new(ENV['HEROKU_USERNAME'], password)
+    heroku.install_addon(ENV['HEROKU_APP_NAME'], 'heroku-postgresql:ika', {:track => self.heroku_name})
+  end
 end
