@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20110428200710) do
     t.string   "name"
     t.integer  "number"
     t.integer  "parent_id"
-    t.integer  "lft"
-    t.integer  "rgt"
+    t.string   "url"
+    t.boolean  "hotstandby"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
