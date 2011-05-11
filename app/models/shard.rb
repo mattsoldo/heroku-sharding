@@ -10,7 +10,12 @@ class Shard < ActiveRecord::Base
   
   def set_number
     if parent
-      self.number = parent.number + (Shard.octopus_count / 2)
+      ## This algorithm expects an even number of shards, so manually set it if there is only one
+      if Shard.octopus_count == 1  
+        self.number = 1
+      else 
+        self.number = parent.number + (Shard.octopus_count / 2)
+      end
     else
       self.number = 0
     end
