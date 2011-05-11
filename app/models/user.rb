@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
     end
     
     def rebalance_shards
-      Shard.all.each do |shard|
+      Shard.shard_only.each do |shard|
         # Delete all of the users that shouldn't be on this shard
         User.using(shard.key).where("node % #{Shard.shard_only.count} != #{shard.number}").delete_all()
       end
