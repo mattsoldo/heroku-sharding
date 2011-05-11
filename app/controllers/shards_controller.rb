@@ -1,6 +1,7 @@
 class ShardsController < ApplicationController
   def index
     @shards = Shard.shard_only.order(:number)
+    puts @shars.length
   end
 
   def show
