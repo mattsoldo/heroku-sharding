@@ -6,7 +6,7 @@ class Shard < ActiveRecord::Base
   # validates_presence_of :parent_id
   before_create :set_number
   
-  scope :shard_only, conditions(:hotstandby => false)
+  scope :shard_only, where(:hotstandby => false)
   
   def set_number
     if parent
@@ -67,7 +67,7 @@ class Shard < ActiveRecord::Base
     new_db_name = new_config_vars.keys - old_config_vars.keys
     new_db_url = new_config_vars.values - old_config_vars.values
     Shard.create(
-      :parent = self, 
+      :parent => self, 
       :url => new_db_url, 
       :name => new_db_name.split('_').last, 
       :hotstandby => true
