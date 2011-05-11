@@ -69,12 +69,12 @@ class Shard < ActiveRecord::Base
     old_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
     heroku.install_addon(ENV['HEROKU_APP_NAME'], 'heroku-postgresql:ika', :track => self.url)
     new_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
-    new_db_name = new_config_vars.keys - old_config_vars.keys
-    new_db_url = new_config_vars.values - old_config_vars.values
+    new_db_name = (new_config_vars.keys - old_config_vars.keys).first
+    new_db_url = (new_config_vars.values - old_config_vars.values).first
     Shard.create(
       :parent => self, 
-      :url => new_db_url, 
-      :name => new_db_name.split('_').last, 
+      :url => (new_config_vars.values - old_config_vars.values).first, 
+      :name =>  (new_config_vars.keys - old_config_vars.keys).first.split('_')[-2].downcase, 
       :hotstandby => true
       )
   end
