@@ -62,7 +62,7 @@ class Shard < ActiveRecord::Base
   def track(password)
     heroku = Heroku::Client.new(ENV['HEROKU_USERNAME'], password)
     old_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
-    heroku.install_addon(ENV['HEROKU_APP_NAME'], 'heroku-postgresql:ika', {:track => self.url})
+    heroku.install_addon(ENV['HEROKU_APP_NAME'], 'heroku-postgresql:ika', :track => self.url)
     new_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
     new_db_name = new_config_vars.keys - old_config_vars.keys
     new_db_url = new_config_vars.values - old_config_vars.values
