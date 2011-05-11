@@ -11,6 +11,8 @@
     <tr>
       <td><%= link_to shard.name, shard %></td>
       <td><%= shard.number %></td>
+      <td><%= #User.using(shard.key).count %></td>
+      <td><%= #Message.using(shard.key).count %></td>
       <td><%= link_to "(edit)", edit_shard_path(shard) %></td>
 		</tr>
   <% end %>
@@ -18,7 +20,7 @@
 		<tr>
 			<td>Total</td>
 			<td></td>
-			<td><%= User.total_count %></td>
+			<td><%= #User.total_count %></td>
 		</tr>
 	</tfoot>				
 </table>
