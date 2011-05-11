@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
     def total_count
       count = 0
-      Shard.all.each do |shard|
+      Shard.shard_only.each do |shard|
         count += User.using(shard.key).count
       end
       return count
