@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   has_many :messages
   validates_presence_of :name
   
-  scope :on_shard, lambda {|shard| where("node % #{Shard.shard_only.count} = #{shard.number}") }
-  scope :not_on_shard, lambda {|shard| where("node % #{Shard.shard_only.count} != #{shard.number}") }
+  scope :on_shard, lambda {|shard| where("node % #{Shard.masters.count} = #{shard.number}") }
+  scope :not_on_shard, lambda {|shard| where("node % #{Shard.masters.count} != #{shard.number}") }
   
   def to_s
     "#{id}: #{name}, #{email}"
@@ -20,15 +20,15 @@ class User < ActiveRecord::Base
     end
     
     def rebalance_shards
-      Shard.shard_only.each do |shard|
+      Shard.masters.each do |shard|
         # Delete all of the users that shouldn't be on this shard
-        User.using(shard.key).where("node % #{Shard.shard_only.count} != #{shard.number}").delete_all()
+        User.using(shard.key).where("node % #{Shard.masters.count} != #{shard.number}").delete_all()
       end
     end
 
     def total_count
       count = 0
-      Shard.shard_only.each do |shard|
+      Shard.masters.each do |shard|
         count += User.using(shard.key).count
       end
       return count

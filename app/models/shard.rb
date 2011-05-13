@@ -6,7 +6,8 @@ class Shard < ActiveRecord::Base
   # validates_presence_of :parent_id
   before_create :set_number
   
-  scope :shard_only, where(:hotstandby => false)
+  scope :masters, where(:hotstandby => false)
+  scope :mirrors, where(:hotstandby => true)
   
   def set_number
     if parent
@@ -56,7 +57,7 @@ class Shard < ActiveRecord::Base
     
   def Shard.find_by_uuid(uuid)
     node = Shard.node_from_uuid(uuid)
-    shard_number = node % Shard.shard_only.count
+    shard_number = node % Shard.masters.count
     Shard.find_by_number(shard_number)
   end
   
@@ -64,8 +65,8 @@ class Shard < ActiveRecord::Base
     return "HEROKU_POSTGRESQL_#{name.upcase}"
   end
   
-  def track(password)
-    heroku = Heroku::Client.new(ENV['HEROKU_USERNAME'], password)
+  def track
+    heroku = Heroku::Client.new(ENV['HEROKU_USERNAME'], ENV['HEROKU_PASSWORD')
     old_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
     heroku.install_addon(ENV['HEROKU_APP_NAME'], 'heroku-postgresql:ika', :track => self.url)
     new_config_vars = heroku.config_vars(ENV['HEROKU_APP_NAME'])
@@ -77,5 +78,23 @@ class Shard < ActiveRecord::Base
       :name =>  (new_config_vars.keys - old_config_vars.keys).first.split('_')[-2].downcase, 
       :hotstandby => true
       )
+  end
+  
+  def detach
+    database = HerokuPostgresql::Client10.new(self.url)
+    database.untrack
+    self.update_attributes(:hotstandby => false)
+  end
+  
+  def Shard.create_trackers
+    Shard.masters.each do |master|
+      master.track
+    end
+  end
+  
+  def Shard.detach_trackers
+    Shard.mirrors.each do |mirror|
+      mirror.detach
+    end
   end
 end

@@ -9,7 +9,8 @@ gem 'redis'
 gem 'lorem'
 gem 'simple_nested_set'
 gem 'kaminari'
-gem 'heroku', '2.0.5'
+gem 'heroku'
+gem 'json'
 group :development, :test do
   gem 'nifty-generators'
 end
