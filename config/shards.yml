@@ -30,3 +30,15 @@ octopus:
         username: ucs7x6s9vo72ek
         password: p85y2qr2vz3qh00w11q5fx9rcx
         host: ec2-50-19-94-195.compute-1.amazonaws.com
+      maroon:
+        adapter: postgresql
+        database: du1csnu5xy0hlfw
+        username: ucs7x6s9vo72ek
+        password: p85y2qr2vz3qh00w11q5fx9rcx
+        host: ec2-50-19-94-202.compute-1.amazonaws.com
+      white:
+        adapter: postgresql
+        database: du1csnu5xy0hlfw
+        username: ucs7x6s9vo72ek
+        password: p85y2qr2vz3qh00w11q5fx9rcx
+        host: ec2-50-19-94-196.compute-1.amazonaws.com
