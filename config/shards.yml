@@ -10,6 +10,12 @@ octopus:
         username: ucs7x6s9vo72ek
         password: p85y2qr2vz3qh00w11q5fx9rcx
         host: ec2-50-19-106-11.compute-1.amazonaws.com  
+      silver:
+        adapter: postgresql
+        database: du1csnu5xy0hlfw
+        username: ucs7x6s9vo72ek
+        password: p85y2qr2vz3qh00w11q5fx9rcx
+        host: ec2-50-19-94-195.compute-1.amazonaws.com
   production:
     shards:
       red:
@@ -18,3 +24,9 @@ octopus:
         username: ucs7x6s9vo72ek
         password: p85y2qr2vz3qh00w11q5fx9rcx
         host: ec2-50-19-106-11.compute-1.amazonaws.com
+      silver:
+        adapter: postgresql
+        database: du1csnu5xy0hlfw
+        username: ucs7x6s9vo72ek
+        password: p85y2qr2vz3qh00w11q5fx9rcx
+        host: ec2-50-19-94-195.compute-1.amazonaws.com
